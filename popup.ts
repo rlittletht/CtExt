@@ -26,7 +26,7 @@ function parseCsvLine(line: string): string[]
       else
         quoted = !quoted;
     }
-    else if (c === ',' && !quoted)
+    else if ((c === ',' || c === '\t') && !quoted)
     {
       fields.push(value.trim());
       value = '';
@@ -97,16 +97,12 @@ function refresh()
   }
 }
 
-$('file').addEventListener(
-  'change',
-  async e =>
-  {
-    const file = (e.target as HTMLInputElement).files?.[0];
-    source = file ? await file.text() : '';
-    $('log').textContent = '';
-    $('status').textContent = '';
-    refresh();
-  });
+$('csv').addEventListener('input', e => {
+  source = ((e.target as HTMLTextAreaElement).value || '');
+  $('log').textContent = '';
+  $('status').textContent = '';
+  refresh();
+});
 $('two').addEventListener('change', refresh);
 
 async function activeTab()
@@ -197,3 +193,32 @@ async function run(onlyFirst: boolean): Promise<void>
 
 $('test').addEventListener('click', () => run(true));
 $('all').addEventListener('click', () => run(false));
+
+// Single relocate: use the provided InventoryId and Bin to perform one relocate
+$('single').addEventListener('click', async () => {
+  if (running) return;
+  running = true;
+  ($('test') as HTMLButtonElement).disabled = true;
+  ($('all') as HTMLButtonElement).disabled = true;
+  ($('single') as HTMLButtonElement).disabled = true;
+  $('error').textContent = '';
+  try {
+    const id = ((document.getElementById('singleId') as HTMLInputElement).value || '').trim();
+    const bin = ((document.getElementById('singleBin') as HTMLInputElement).value || '').trim();
+    if (!/^\d+$/.test(id)) throw Error('Inventory ID must be numeric');
+    if (!/^[A-Za-z0-9 _.\-]{1,40}$/.test(bin)) throw Error('Bin must be 1–40 letters/numbers/spaces/_.-');
+    const tabId = await activeTab();
+    const result = await relocate(tabId, { id, bin });
+    completed.add(id);
+    log(`${completed.size}/${rows.length || 1}: ${id} → ${bin} (HTTP ${result.status})`);
+    $('status').textContent = `Relocated ${id} → ${bin}.`;
+  } catch (e) {
+    const message = e instanceof Error ? e.message : String(e);
+    $('error').textContent = `Stopped: ${message}`;
+    log(`STOPPED: ${message}`);
+  } finally {
+    running = false;
+    ($('test') as HTMLButtonElement).disabled = completed.size > 0 || !rows.length;
+    ($('single') as HTMLButtonElement).disabled = false;
+  }
+});

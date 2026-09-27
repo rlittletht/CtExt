@@ -60,14 +60,23 @@
     </style>
 </head>
 <body>
-    <h1>CellarTracker Bin Loader</h1>
-    <p>Open a logged-in CellarTracker tab, then choose a UTF-8 CSV with <code>InventoryId,Bin</code> columns.</p>
-    <input id="file" type="file" accept=".csv,text/csv,text/plain">
-    <label><input id="two" type="checkbox" checked> Require exactly two bottles per bin</label>
-    <div id="summary"></div>
-    <div id="error" role="alert"></div>
-    <button id="test" disabled>Update first bottle only</button><button id="all" disabled>Update remaining bottles</button>
-    <div id="status" role="status"></div><pre id="log"></pre>
-    <script src="popup.js"></script>
+<h1>CellarTracker Bin Loader</h1>
+<p>Open a logged-in CellarTracker tab, then paste a UTF-8 CSV with <code>InventoryId,Bin</code> columns into the box below.</p>
+<label for="csv" style="font-size:13px;margin:6px 0">CSV content:</label>
+<textarea id="csv" rows="8" style="width:100%;box-sizing:border-box" placeholder="InventoryId,Bin\n223831307,00030011\n223831308,00030011"></textarea>
+<label><input id="two" type="checkbox" checked> Require exactly two bottles per bin</label>
+<fieldset style="margin: 10px 0; padding: 8px; border: 1px solid #ddd">
+    <legend style="font-size: 12px; padding: 0 4px">Single relocate</legend>
+    <label style="font-size: 13px; margin: 6px 0">Inventory ID: <input id="singleId" type="text" style="width: 180px; margin-left: 6px" placeholder="e.g. 223831307"></label>
+    <label style="font-size: 13px; margin: 6px 0">Bin: <input id="singleBin" type="text" style="width: 120px; margin-left: 6px" placeholder="e.g. 00030011"></label>
+    <div>
+        <button id="single">Relocate single</button>
+    </div>
+</fieldset>
+<div id="summary"></div>
+<div id="error" role="alert"></div>
+<button id="test" disabled>Update first bottle only</button><button id="all" disabled>Update remaining bottles</button>
+<div id="status" role="status"></div><pre id="log"></pre>
+<script src="popup.js"></script>
 </body>
 </html>
