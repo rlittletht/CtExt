@@ -1,0 +1,11 @@
+{
+  "name": "cellartracker-bin-loader",
+  "private": true,
+  "version": "0.2.0",
+  "scripts": {
+    "build":
+      "tsc -p tsconfig.json --outDir dist && node -e \"const fs=require('fs');fs.mkdirSync('dist', { recursive: true });fs.copyFileSync('manifest.json','dist/manifest.json');fs.copyFileSync('popup.html','dist/popup.html');\"",
+    "check": "tsc -p tsconfig.json --noEmit"
+  },
+  "devDependencies": { "typescript": "^5.9.3" }
+}

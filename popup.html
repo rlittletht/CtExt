@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Bin Loader</title>
+<style>
+body{font:14px system-ui,sans-serif;width:370px;margin:16px;color:#222}h1{font-size:18px;margin:0 0 12px}label{display:block;margin:10px 0}input[type=file]{width:100%}button{margin:6px 6px 0 0;padding:7px 10px}button:disabled{opacity:.45}pre{white-space:pre-wrap;max-height:210px;overflow:auto;background:#f4f4f4;padding:9px}#error{color:#a00}#status{color:#174c2c}
+</style></head><body>
+<h1>CellarTracker Bin Loader</h1>
+<p>Open a logged-in CellarTracker tab, then choose a UTF-8 CSV with <code>InventoryId,Bin</code> columns.</p>
+<input id="file" type="file" accept=".csv,text/csv,text/plain">
+<label><input id="two" type="checkbox" checked> Require exactly two bottles per bin</label>
+<div id="summary"></div><div id="error" role="alert"></div>
+<button id="test" disabled>Update first bottle only</button><button id="all" disabled>Update remaining bottles</button>
+<div id="status" role="status"></div><pre id="log"></pre>
+<script src="popup.js"></script></body></html>
