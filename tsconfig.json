@@ -3,5 +3,5 @@
     "target": "ES2022", "module": "None", "lib": ["ES2022", "DOM"],
     "strict": true, "noEmitOnError": true, "outDir": "."
   },
-  "files": ["popup.ts"]
+  "files": ["popup.ts", "relocate.ts", "drink.ts"]
 }

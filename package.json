@@ -4,7 +4,7 @@
   "version": "0.2.0",
   "scripts": {
     "build":
-      "tsc -p tsconfig.json --outDir dist && node -e \"const fs=require('fs');fs.mkdirSync('dist', { recursive: true });fs.copyFileSync('manifest.json','dist/manifest.json');fs.copyFileSync('popup.html','dist/popup.html');\"",
+      "tsc -p tsconfig.json --outDir dist && node -e \"const fs=require('fs');fs.mkdirSync('dist', { recursive: true });for (const file of ['manifest.json','popup.html','relocate.html','drink.html']) fs.copyFileSync(file, 'dist/' + file);\"",
     "check": "tsc -p tsconfig.json --noEmit"
   },
   "devDependencies": { "typescript": "^5.9.3" }

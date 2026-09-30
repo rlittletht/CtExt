@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <meta charset="utf-8"><title>Bin Loader</title>
+    <meta charset="utf-8"><title>Drink Wines</title>
     <style>
         body
         {
@@ -15,17 +15,6 @@
         {
             font-size: 18px;
             margin: 0 0 12px
-        }
-
-        label
-        {
-            display: block;
-            margin: 10px 0
-        }
-
-        input[type=file]
-        {
-            width: 100%
         }
 
         button
@@ -60,12 +49,14 @@
     </style>
 </head>
 <body>
-<h1>CellarTracker Bin Loader</h1>
-<p>Choose which workflow to open.</p>
-<div style="display:grid;gap:10px">
-    <button id="openRelocate">Open relocate popup</button>
-    <button id="openDrink">Open drink popup</button>
-</div>
-<script src="popup.js"></script>
+<h1>Drink Wines</h1>
+<p>Open a logged-in CellarTracker tab, then paste <code>scancode,iwine,drinkdate,notes</code> rows below.</p>
+<button id="back">Back</button>
+<label for="drinkCsv" style="font-size: 13px; margin: 6px 0">Paste scancode,iwine,drinkdate,notes:</label>
+<textarea id="drinkCsv" rows="8" style="width:100%;box-sizing:border-box" placeholder="223227674,5545276,9/27/2026,test"></textarea>
+<div id="error" role="alert"></div>
+<button id="drink">Drink entries</button>
+<div id="status" role="status"></div><pre id="log"></pre>
+<script src="drink.js"></script>
 </body>
 </html>
